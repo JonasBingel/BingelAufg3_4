@@ -12,7 +12,8 @@ public class Volocopter {
 	private double beschleunigung;
 	private int position;
 	private Scanner konsolenInput;
-	private DecimalFormat df;
+	// private DecimalFormat df;
+	private String windeinfluss;
 
 	Volocopter() {
 		zeit = 0;
@@ -20,8 +21,9 @@ public class Volocopter {
 		geschwindigkeit = 0;
 		schub = 0;
 		position = 0;
+		windeinfluss = "";
 		konsolenInput = new Scanner(System.in);
-		df = new DecimalFormat("0.00");
+		// df = new DecimalFormat("0.00");
 
 	}
 
@@ -56,12 +58,22 @@ public class Volocopter {
 		// erst wird die Hoehe berechnet
 		this.geschwindigkeit = this.geschwindigkeit + this.beschleunigung;
 
-		
-		//TODO Aufruf der Wind-Simulation
+		// TODO Aufruf der Wind-Simulation
 		// Ändern der Position nach Windrichtung default: KEIN_WIND
 		// RETURNED STRING MIT WINDENFLUSS d.h. "" oder "WIND!"
-		
+
 		this.zeit = this.zeit + 1;
+	}
+
+	private void berechneWindEinfluss(Windart windRichtung) {
+		this.windeinfluss = "Wind!";
+		if (windRichtung.equals(Windart.LINKS)) {
+			this.position = this.position - 1;
+		} else if (windRichtung.equals(Windart.RECHTS)) {
+			this.position = this.position + 1;
+		} else {
+			this.windeinfluss = "";
+		}
 	}
 
 	private String erstellePositionDarstellung() {
@@ -102,30 +114,23 @@ public class Volocopter {
 
 	}
 
-	private void ausgeben() {
-		// toString kann auch implementiert werden
-		// ausgeben() eventuell lieber für Ausgabe von Positin usw. verwenden
-
-	}
-
 	@Override
 	public String toString() {
 		return String.format("%-8d %-8.2f %-18.2f %-16d  %-7s %-10s", this.zeit, this.hoehe, this.geschwindigkeit,
-				this.schub, this.erstellePositionDarstellung(), "Wind!");
+				this.schub, this.erstellePositionDarstellung(), this.windeinfluss);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// while hoehe > 0 eineRundespielen() aufrufen
-		// volocopter wird erzeugt
-		// TODO Format-String als Variable deklarien. df kann abgelöst werden!
-
 		Volocopter volocopter1 = new Volocopter();
+		Wind simulationsWind = new Wind();
+
 		System.out.println(String.format("%-8s %-8s %-18s %-16s  %-18s", "Zeit", "Hoehe", "Geschwind.[m/s]",
 				"Schub[0..8]", "Position[l/r]"));
 		System.out.print(volocopter1.toString());
 		while (volocopter1.hoehe > 0) {
 			volocopter1.eineRundespielen();
+			simulationsWind.simuliereWind();
+			volocopter1.berechneWindEinfluss(simulationsWind.getMomentanerWind());
 			System.out.print(volocopter1.toString());
 		}
 		System.out.println(System.lineSeparator() + volocopter1.bewerteLandung());

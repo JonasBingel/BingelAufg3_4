@@ -78,7 +78,6 @@ public class Artikelliste {
 				linkesEnde = mitteSuchbereich + 1;
 			}
 		}
-
 		return (-1);
 	}
 
@@ -161,7 +160,7 @@ public class Artikelliste {
 			}
 			long endeBineareSuchzeit = System.currentTimeMillis();
 			binaereSuchzeitVariabel = endeBineareSuchzeit - startBineareSuchzeit;
-			System.out.println(binaereSuchzeitVariabel + "Durchlauf Nr. " + durchlauf +" "+ minimaleAnzahl);
+			System.out.println(binaereSuchzeitVariabel + "Durchlauf Nr. " + durchlauf + " " + minimaleAnzahl);
 
 			durchlauf = durchlauf + 1;
 		} while (binaereSuchzeitVariabel < 1);
