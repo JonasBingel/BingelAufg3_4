@@ -2,8 +2,6 @@ package pack;
 
 public class Wind {
 	private Windart momentanerWind;
-	// berechnet die Wind wahrscheinlichkeit 20% für links oder rechts
-	// double zufall = Math.random();
 
 	public void simuliereWind() {
 		double zufallsZahl = Math.random();

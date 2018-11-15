@@ -1,14 +1,10 @@
 package pack;
 
+// TODO Fragen klären: Müssen/Sollen Getter/Setter verwendet werden? Sollen die Berechnungsschleifen ausgelagert werden
+// TODO Bessere Variablennamen wählen
 public class Artikelliste {
 	private final int MAX;
 	private Artikel[] artikelListe;
-
-	/*
-	 * Deklaration der einzelen Attribute Ein Attribut sollte die Min-MAX Anzahl für
-	 * die binaere Suche sein bzw. die einzelnen Zeiten Initialisierung im
-	 * Konstruktur
-	 **/
 
 	Artikelliste(int MAX) {
 		this.MAX = MAX;
@@ -33,6 +29,8 @@ public class Artikelliste {
 			 * folgenden. Falls ja, tauschen die beiden Artikel ihre Indexpositionen*
 			 */
 			for (int i = 0; i < artikelListenLaenge - 1; i++) {
+				// TODO entscheiden, ob man mit Gettern arbeitet und die Methode
+				// istArtikelNrGroesser dafür entfernt
 				// if (artikelListe[i].artNr > artikelListe[i + 1].artNr) {
 				if (artikelListe[i].istArtikelNrGroesser(artikelListe[i + 1])) {
 
@@ -42,11 +40,10 @@ public class Artikelliste {
 					artikelListe[i] = hilfsArtikel;
 					neueLaenge = i + 1;
 				}
-			}
-			/**
-			 * Die Artikellistenlänge vermindert sich jedes Mal um 1, da der groesste
-			 * Artikel bereits an der letzten Position angekommen ist.
-			 */
+			} /**
+				 * Die Artikellistenlänge vermindert sich jedes Mal um 1, da der groesste
+				 * Artikel bereits an der letzten Position angekommen ist.
+				 */
 			artikelListenLaenge = neueLaenge;
 
 		} while (artikelListenLaenge > 1);
@@ -81,20 +78,23 @@ public class Artikelliste {
 		return (-1);
 	}
 
-	/*
-	 * private int binaereSuche(int Suchwert) { int linkesEnde = 0; int rechtesEnde
-	 * = artikelListe.length - 1;
-	 * 
-	 * while (linkesEnde < rechtesEnde) { int mitteSuchbereich = linkesEnde +
-	 * ((rechtesEnde - linkesEnde) / 2);
-	 * 
-	 * if (artikelListe[mitteSuchbereich].getArtNr() == Suchwert) { return
-	 * mitteSuchbereich; } else if (artikelListe[mitteSuchbereich].getArtNr() >
-	 * Suchwert) { rechtesEnde = mitteSuchbereich - 1; } else if
-	 * (artikelListe[mitteSuchbereich].getArtNr() < Suchwert) { linkesEnde =
-	 * mitteSuchbereich + 1; } }
-	 * 
-	 */
+	private int binaereSuched(int Suchwert) {
+		int linkesEnde = 0;
+		int rechtesEnde = artikelListe.length - 1;
+
+		while (linkesEnde < rechtesEnde) {
+			int mitteSuchbereich = linkesEnde + ((rechtesEnde - linkesEnde) / 2);
+
+			if (artikelListe[mitteSuchbereich].getArtNr() == Suchwert) {
+				return mitteSuchbereich;
+			} else if (artikelListe[mitteSuchbereich].getArtNr() > Suchwert) {
+				rechtesEnde = mitteSuchbereich - 1;
+			} else if (artikelListe[mitteSuchbereich].getArtNr() < Suchwert) {
+				linkesEnde = mitteSuchbereich + 1;
+			}
+		}
+		return (-1);
+	}
 
 	private void ausgeben() {
 		System.out.println("ArtNr \tArtikelbezeichnung");
@@ -114,7 +114,7 @@ public class Artikelliste {
 	public static void main(String[] args) {
 
 		/** Festlegen der Artikellistengroesse */
-		final int MAX = 5000;
+		final int MAX = 100;
 
 		Artikelliste artikelListe1 = new Artikelliste(MAX);
 		artikelListe1.sortiereNachArtikelNr();
@@ -130,7 +130,7 @@ public class Artikelliste {
 		// BINAERE SUCHE
 		long startBinaer = System.currentTimeMillis();
 		for (int i = 0; i < MAX; i++) {
-			artikelListe1.binaereSuche(i);
+			artikelListe1.binaereSuched(i);
 		}
 		long endeBinaer = System.currentTimeMillis();
 		long binaereSuchzeit = endeBinaer - startBinaer;
@@ -145,6 +145,7 @@ public class Artikelliste {
 		long endeBibliothek = System.currentTimeMillis();
 		long bibliotheksSuchzeit = endeBibliothek - startBibliothek;
 
+		// BINAERESUCHE LAENGER
 		long binaereSuchzeitVariabel;
 		int minimaleAnzahl;
 		int durchlauf = 0;

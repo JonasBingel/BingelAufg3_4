@@ -28,20 +28,21 @@ public class Volocopter {
 	}
 
 	private void eineRundespielen() {
-		// scanner ist implementiert und bleibt dauerhaft offen
-		// scanner in separater Methode, die Input überprüft oder doch lieber hier erst
-		// prüfen und dem nach handeln
-		final double erdbeschleunigung = -9.8;
+		
+		
+		// TODO EINGABE METHODE
+		// Scanner soll immer offen sein
 		String eingabe = konsolenInput.nextLine();
-
 		this.schub = 0;
 		this.beschleunigung = 0;
-		String gueltigeEingabe = "0 1 2 3 4 5 6 7 8";
+		String gueltigeEingabe = "012345678";
 
 		if (eingabe.equals("r")) {
-			this.position = this.position + 1;
+			bewegeRechts();
+			//this.position = this.position + 1;
 		} else if (eingabe.equals("l")) {
-			this.position = this.position - 1;
+			bewegeLinks();
+			//this.position = this.position - 1;
 		} else if (eingabe.equals("")) {
 			this.schub = 0;
 		} else if (gueltigeEingabe.contains(eingabe)) {
@@ -49,49 +50,50 @@ public class Volocopter {
 		} else {
 			System.out.println("Volocopter überlastet! Schub wird auf 0 gesetzt!");
 		}
-
-		this.beschleunigung = erdbeschleunigung + this.schub * 2;
-		// TODO Berechne Hoehe
+		
+		// TODOMETHODE PHYSIK SIMULATION
+		final double FALLBESCHLEUNIGUNG_ERDE = -9.8;
+		this.beschleunigung = FALLBESCHLEUNIGUNG_ERDE + this.schub * 2;
 		this.hoehe = this.hoehe + this.geschwindigkeit + 0.5 * this.beschleunigung;
-		// TODO Berechne Geschwindigkeit
-		// Die Geschwindigkeit berechnet sich erst nach der neuen Beschleunigung d.h.
-		// erst wird die Hoehe berechnet
 		this.geschwindigkeit = this.geschwindigkeit + this.beschleunigung;
-
-		// TODO Aufruf der Wind-Simulation
-		// Ändern der Position nach Windrichtung default: KEIN_WIND
-		// RETURNED STRING MIT WINDENFLUSS d.h. "" oder "WIND!"
-
 		this.zeit = this.zeit + 1;
+	}
+	
+	private void bewegeRechts() {
+		this.position = this.position + 1;
+	}
+	
+	private void bewegeLinks() {
+		this.position = this.position - 1;
 	}
 
 	private void berechneWindEinfluss(Windart windRichtung) {
 		this.windeinfluss = "Wind!";
-		if (windRichtung.equals(Windart.LINKS)) {
-			this.position = this.position - 1;
-		} else if (windRichtung.equals(Windart.RECHTS)) {
-			this.position = this.position + 1;
+		if (windRichtung.equals(Windart.RECHTS)) {
+			bewegeRechts();
+			//this.position = this.position + 1;			
+		} else if (windRichtung.equals(Windart.LINKS)) {
+			bewegeLinks();
+			//this.position = this.position - 1;			
 		} else {
 			this.windeinfluss = "";
 		}
 	}
 
 	private String erstellePositionDarstellung() {
-		// TODO Wind! Lässt sich vermutlich hier am besten einbauen
-		// Sonst in der ToSTring-Methode -> Wert auf 8 vermindern
 		char[] positionsDarstellung = new char[7];
-
 		java.util.Arrays.fill(positionsDarstellung, '.');
-
-		if (-2 <= this.position && this.position <= 2) {
+		if (-3 <= this.position && this.position <= 3) {
 			positionsDarstellung[this.position + 3] = 'x';
 		}
-		String positionAusgabe = new String(positionsDarstellung);
-		return positionAusgabe;
+		//String positionAusgabe = new String(positionsDarstellung);
+		//return positionAusgabe;
+		return new String(positionsDarstellung);
 
 	}
 
 	private String bewerteLandung() {
+		// TODO Eventuell direkt ausgeben
 		String geschwindigkeitsBewertung = "";
 		String positionsBewertung = "";
 
