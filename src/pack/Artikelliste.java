@@ -1,7 +1,8 @@
 package pack;
 
-// TODO Fragen klären: Müssen/Sollen Getter/Setter verwendet werden? Sollen die Berechnungsschleifen ausgelagert werden
+// TODO Getter/Setter in Artikel implementieren; Zeiterfassungsmethode erstellen mit Angabe der Suchart; Main-Methode auslagern
 // TODO Bessere Variablennamen wählen
+
 public class Artikelliste {
 	private final int MAX;
 	private Artikel[] artikelListe;
@@ -29,10 +30,7 @@ public class Artikelliste {
 			 * folgenden. Falls ja, tauschen die beiden Artikel ihre Indexpositionen*
 			 */
 			for (int i = 0; i < artikelListenLaenge - 1; i++) {
-				// TODO entscheiden, ob man mit Gettern arbeitet und die Methode
-				// istArtikelNrGroesser dafür entfernt
-				// if (artikelListe[i].artNr > artikelListe[i + 1].artNr) {
-				if (artikelListe[i].istArtikelNrGroesser(artikelListe[i + 1])) {
+				if (artikelListe[i].getArtNr() > (artikelListe[i + 1].getArtNr())) {
 
 					// Implementierung eines Dreiecktauschs
 					hilfsArtikel = artikelListe[i + 1];
@@ -58,27 +56,8 @@ public class Artikelliste {
 		return (-1);
 	}
 
-	// TODO Verbessern!
+
 	private int binaereSuche(int Suchwert) {
-		int linkesEnde = 0;
-		int rechtesEnde = artikelListe.length - 1;
-		Artikel hilfsartikel = new Artikel(Suchwert, "hilfsartikel");
-
-		while (linkesEnde < rechtesEnde) {
-			int mitteSuchbereich = linkesEnde + ((rechtesEnde - linkesEnde) / 2);
-
-			if (artikelListe[mitteSuchbereich].istArtikelNrgleich(hilfsartikel)) {
-				return mitteSuchbereich;
-			} else if (artikelListe[mitteSuchbereich].istArtikelNrGroesser(hilfsartikel)) {
-				rechtesEnde = mitteSuchbereich - 1;
-			} else if (artikelListe[mitteSuchbereich].istArtikelNrkleiner(hilfsartikel)) {
-				linkesEnde = mitteSuchbereich + 1;
-			}
-		}
-		return (-1);
-	}
-
-	private int binaereSuched(int Suchwert) {
 		int linkesEnde = 0;
 		int rechtesEnde = artikelListe.length - 1;
 
@@ -114,7 +93,7 @@ public class Artikelliste {
 	public static void main(String[] args) {
 
 		/** Festlegen der Artikellistengroesse */
-		final int MAX = 100;
+		final int MAX = 50000;
 
 		Artikelliste artikelListe1 = new Artikelliste(MAX);
 		artikelListe1.sortiereNachArtikelNr();
@@ -130,7 +109,7 @@ public class Artikelliste {
 		// BINAERE SUCHE
 		long startBinaer = System.currentTimeMillis();
 		for (int i = 0; i < MAX; i++) {
-			artikelListe1.binaereSuched(i);
+			artikelListe1.binaereSuche(i);
 		}
 		long endeBinaer = System.currentTimeMillis();
 		long binaereSuchzeit = endeBinaer - startBinaer;

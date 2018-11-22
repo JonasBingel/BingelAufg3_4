@@ -1,5 +1,9 @@
 package pack;
 
+// TODO Kommentare und Auslagerung der Simulationen für bessere Übersichtlichkeit
+// TODO Main-Methode aufräumen
+// TODO bewerteLandung evaluieren
+
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -12,7 +16,6 @@ public class Volocopter {
 	private double beschleunigung;
 	private int position;
 	private Scanner konsolenInput;
-	// private DecimalFormat df;
 	private String windeinfluss;
 
 	Volocopter() {
@@ -23,7 +26,6 @@ public class Volocopter {
 		position = 0;
 		windeinfluss = "";
 		konsolenInput = new Scanner(System.in);
-		// df = new DecimalFormat("0.00");
 
 	}
 
@@ -81,19 +83,17 @@ public class Volocopter {
 	}
 
 	private String erstellePositionDarstellung() {
+		// Jede Rund wird ein neues charArray initialisiert. Evtl. lieber als Attribut
 		char[] positionsDarstellung = new char[7];
 		java.util.Arrays.fill(positionsDarstellung, '.');
 		if (-3 <= this.position && this.position <= 3) {
 			positionsDarstellung[this.position + 3] = 'x';
 		}
-		//String positionAusgabe = new String(positionsDarstellung);
-		//return positionAusgabe;
 		return new String(positionsDarstellung);
 
 	}
 
 	private String bewerteLandung() {
-		// TODO Eventuell direkt ausgeben
 		String geschwindigkeitsBewertung = "";
 		String positionsBewertung = "";
 
