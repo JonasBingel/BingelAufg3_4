@@ -51,7 +51,7 @@ public class Artikelliste {
 					neueLaenge = i + 1;
 				}
 			} /**
-				 * Die Artikellistenl√§nge vermindert sich jedes Mal um 1, da der groesste
+				 * Die Artikellistenl‰nge vermindert sich jedes Mal um 1, da der groesste
 				 * Artikel bereits an der letzten Position angekommen ist.
 				 */
 			artikelListenLaenge = neueLaenge;
@@ -79,7 +79,7 @@ public class Artikelliste {
 
 	/**
 	 * Implementierung einer objektorientierten Version der binaeren Suche von
-	 * Wikipedia. siehe: de.wikipedia.org/wiki/Bin√§re_Suche
+	 * Wikipedia. siehe: de.wikipedia.org/wiki/Bin‰re_Suche
 	 * 
 	 * @param Suchwert ist der int Wert, der innerhalb der Liste gesucht werden
 	 *                 soll.
@@ -110,7 +110,7 @@ public class Artikelliste {
 	 * benoetigt. Diese Methode extrahiet alle ArtNr aus der Artikelliste und
 	 * erzeugt das int Array.
 	 * 
-	 * @return Integer-Array das alle ArtNr enth√§lt
+	 * @return Integer-Array das alle ArtNr enth‰lt
 	 */
 	private int[] extrahiereArtNrListe() {
 		int[] artikelListeBibliotheksFunktion = new int[artikelListe.length];
@@ -199,7 +199,7 @@ public class Artikelliste {
 
 			durchlauf = durchlauf + 1;
 		} while (binaereSuchzeitVariabel < 1);
-		return ("binaereSuche dauert l√§nger als 0 ms (= " + String.format("%03d", binaereSuchzeitVariabel) + ") ms bei "
+		return ("binaereSuche dauert l‰nger als 0 ms (= " + String.format("%03d", binaereSuchzeitVariabel) + ") ms bei "
 				+ minimaleAnzahl + " Elementen");
 
 	}
@@ -231,7 +231,7 @@ public class Artikelliste {
 	 */
 	public static void main(String[] args) {
 		// Festlegen der Anzahl an Artikeln in der Artikelliste
-		final int MAX = 50000;
+		final int MAX = 75000;
 
 		Artikelliste artikelListe1 = new Artikelliste(MAX);
 

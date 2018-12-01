@@ -1,13 +1,18 @@
 package pack;
-// TODO eventuell toString Methode mit if (momentanerWind.equals(Windart.KEIN_WIND)) return "" else return "Wind!";
 
 /**
- * @author Jonas Bingel Wind-Klasse fuer die Volocopter Klasse, in der Wind
- *         simuliert werden kann.
- *
+ * @author Jonas Bingel Wind-Klasse fuer die VolocopterSpiel Klasse. Diese
+ *         Klasse simuliert Wind
  */
 public class Wind {
 	private Windart momentanerWind;
+
+	/**
+	 * Konstruktor der Wind-Klasse
+	 */
+	public Wind() {
+		momentanerWind = Windart.KEIN_WIND;
+	}
 
 	/**
 	 * Simuliert den Wind, sodass mit jeweils 20% Wahrscheinlichkeit nach links oder
@@ -26,5 +31,12 @@ public class Wind {
 
 	public Windart getMomentanerWind() {
 		return momentanerWind;
+	}
+
+	public String toString() {
+		if (momentanerWind.equals(Windart.KEIN_WIND))
+			return "";
+		else
+			return "Wind!";
 	}
 }
