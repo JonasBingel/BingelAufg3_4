@@ -1,0 +1,7 @@
+"Aufgabe 3: 9,5 Punkte
+
+- Redundanter Quellcode in Methode messeSuchzeit. Die Zeiten können vor und nach dem switch-case gemessen werden. (-0,5)
+
+Aufgabe 4: 10 Punkte
+
+" 
